@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pose Estimation Fitness Coach</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="coach-stage" aria-label="Live pose coach">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Real-time computer vision coach</p>
+            <h1>Pose Estimation Fitness Coach</h1>
+          </div>
+          <div class="status-pill" id="modelStatus" aria-live="polite">Loading model</div>
+        </header>
+
+        <div class="video-wrap">
+          <video id="video" playsinline muted></video>
+          <canvas id="overlay" aria-label="Pose landmark overlay"></canvas>
+          <div class="empty-state" id="emptyState">
+            <strong>Camera preview appears here</strong>
+            <span>Start camera or run demo mode to see posture feedback.</span>
+          </div>
+        </div>
+
+        <div class="control-strip" aria-label="Coach controls">
+          <label>
+            Exercise
+            <select id="exerciseSelect">
+              <option value="squat">Squat</option>
+              <option value="pushup">Push-up</option>
+              <option value="plank">Plank</option>
+              <option value="press">Shoulder press</option>
+            </select>
+          </label>
+          <button id="startButton" type="button">Start camera</button>
+          <button id="switchButton" type="button" class="secondary">Switch camera</button>
+          <button id="demoButton" type="button" class="secondary">Demo mode</button>
+        </div>
+      </section>
+
+      <aside class="coach-panel" aria-label="Coaching feedback">
+        <section class="score-card">
+          <span class="label">Form score</span>
+          <strong id="formScore">--</strong>
+          <div class="meter" aria-hidden="true"><span id="scoreMeter"></span></div>
+        </section>
+
+        <section class="feedback-card">
+          <h2>Live cues</h2>
+          <ul id="cueList" aria-live="polite">
+            <li>Choose an exercise and start tracking.</li>
+          </ul>
+        </section>
+
+        <section class="metric-grid" id="metricGrid" aria-label="Pose metrics">
+          <article>
+            <span>Reps</span>
+            <strong id="repCount">0</strong>
+          </article>
+          <article>
+            <span>Depth</span>
+            <strong id="depthMetric">--</strong>
+          </article>
+          <article>
+            <span>Alignment</span>
+            <strong id="alignmentMetric">--</strong>
+          </article>
+          <article>
+            <span>Tempo</span>
+            <strong id="tempoMetric">--</strong>
+          </article>
+        </section>
+
+        <section class="notes">
+          <h2>How it works</h2>
+          <p>
+            MediaPipe estimates body landmarks in the browser. This prototype compares joint angles and body lines against
+            exercise-specific rules, then gives immediate coaching cues.
+          </p>
+          <p class="privacy">Video stays on device; the model runs locally after its files load.</p>
+        </section>
+      </aside>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
